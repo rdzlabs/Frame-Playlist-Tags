@@ -23,8 +23,6 @@ def is_spotify_authorized():
         return False
 
 if __name__ == "__main__":
-    print("🎧 Booting Frame Playlist System...\n")
-
     # Step 1 — Start Spotify server
     spotify_process = start_server("spotify_server.py", "Spotify Server")
     time.sleep(3)

@@ -5,10 +5,9 @@ from dotenv import load_dotenv
 import os
 from playback_logic import get_playback_uri
 import time
+from utils_print import log, html_msg
 
 
-
-# --- Load environment variables ---
 load_dotenv()
 
 SPOTIPY_CLIENT_ID = os.getenv("SPOTIPY_CLIENT_ID")
@@ -29,9 +28,11 @@ sp_oauth = SpotifyOAuth(
 
 @app.route("/auth")
 def auth():
-    """Step 1: authorize Spotify once."""
+    """Step 1: Authorize Spotify once."""
     url = sp_oauth.get_authorize_url()
-    return f"<a href='{url}'>Click to authorize Spotify</a>"
+    log("Spotify authorization requested", "INFO")
+    return html_msg("Spotify Authorization", f"<a href='{url}'>Click here to authorize</a>")
+
 
 @app.route("/callback")
 def callback():
@@ -85,5 +86,4 @@ def play():
 
 
 if __name__ == "__main__":
-    print(get_playback_uri("fuerza"))
     app.run(host="0.0.0.0", port=5051)
